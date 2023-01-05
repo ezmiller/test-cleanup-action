@@ -1,1 +1,1 @@
-echo 'yo'
+echo 'yo';
