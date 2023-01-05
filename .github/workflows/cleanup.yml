@@ -20,4 +20,10 @@ jobs:
               - packages/a/**
             b:
               - packages/b/**
-      - run: echo ${{ fromJSON(needs.changes.outputs.packages) }}
+
+  do-stuff-for-a:
+    needs: changes
+    if: contains(needs.changes.outputs.packages, 'a')
+
+    steps:
+      - run: echo 'do-stuff-for-a ran'
