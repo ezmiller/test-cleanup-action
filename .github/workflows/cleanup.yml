@@ -1,0 +1,23 @@
+name: 'Cleanup'
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            a:
+              - packages/a/**
+            b:
+              - packages/b/**
+      - run: echo ${{ fromJSON(needs.changes.outputs.packages) }}
