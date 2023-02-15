@@ -1,16 +1,13 @@
-name: 'Understand close vs merge'
+name: Understand close vs merge
 on:
   pull_request:
     types: [closed]
 
 jobs:
-  changes:
+  echo-context-values:
     runs-on: ubuntu-latest
-
-    - name: github context
-      run: |
-        echo "${{github.event.pull_request.base.sha}}"
-        echo "${{github.sha}}"
-      
-
-    
+    steps:
+      - name: github context
+        run: |
+          echo "${{github.event.pull_request.base.sha}}"
+          echo "${{github.sha}}"
